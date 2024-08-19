@@ -11,7 +11,7 @@ public class JdbcExample {
   private static String driver = "com.mysql.cj.jdbc.Driver";
     private static String url = "jdbc:mysql://localhost:3306/testing?useUnicode=true&characterEncoding=utf8";
     private static String user = "root";
-    private static String password = "123456";
+    private static String password = "Zhoudf,,368878";
 
     static {
         try {

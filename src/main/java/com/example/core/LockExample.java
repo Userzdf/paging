@@ -26,7 +26,7 @@ public class LockExample {
     }
   }
   public static void main(String[] args) throws Exception{
-    String res = new Pager("user",1,200000).pagingForSingleTable();
+    String res = new Pager("user",1,5,null).pagingForSingleTable();
     new LockExample().synchronizedMethod();
   }
 }

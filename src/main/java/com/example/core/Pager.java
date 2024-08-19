@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.Map;
  * ...后续有待扩展(eg:排序、动态条件、多线程查询...)
  * 只适应单表查询
  */
-public class Pager {
+public class Pager implements Serializable {
   private String tableName; // 表名
   private Integer pageNumber; // 当前页码
   private Integer pageSize; // 每页显示条数
@@ -25,24 +26,35 @@ public class Pager {
   private Statement statement = null;// 发送sql语句(不带参数)
   private PreparedStatement preparedStatement = null; // 发送sql语句(带参数)
   private ResultSet resultSet = null; //查询返回的结果集合
-  Logger log = LoggerFactory.getLogger(Pager.class);
+  private final Logger log = LoggerFactory.getLogger(Pager.class);
   private String queryStr; // 如果是多表，传入查询语句()
+  private Object other; //其他一些连接表条件
   public Pager() {
 
   }
 
   //单表使用的构造方法
-  public Pager(String tableName, Integer pageNumber, Integer pageSize) {
+  public Pager(String tableName, Integer pageNumber, Integer pageSize,Object other) {
     this.tableName = tableName;
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
+    this.other = other;
   }
 
   //多表使用重载的构造方法
-  public Pager(Integer pageNumber, Integer pageSize,String queryStr) {
+  public Pager(Integer pageNumber, Integer pageSize,String queryStr,Object other) {
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
     this.queryStr = queryStr;
+    this.other = other;
+  }
+
+  public Object getOther() {
+    return other;
+  }
+
+  public void setOther(Object other) {
+    this.other = other;
   }
 
   public String getQueryStr() {
@@ -116,7 +128,7 @@ public class Pager {
       this.preparedStatement = this.connection.prepareStatement(sql);
       this.preparedStatement.setInt(1, offset);
       this.preparedStatement.setInt(2, this.getPageSize());
-      resultSet = preparedStatement.executeQuery();
+      resultSet = this.preparedStatement.executeQuery();
       data = this.resultSetToList(this.resultSet);
       this.log.info("getList:->{}",sql+"---param:"+offset+","+this.getPageSize());
     } catch (Exception e) {
