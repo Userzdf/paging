@@ -9,7 +9,7 @@ import com.example.core.JdbcExample;
 
 public class TestDao {
 
-  public void TestFindById(){
+  public void testFindById(){
     Connection connection = null;
     Statement statement = null;
     ResultSet resultSet = null;
@@ -20,7 +20,6 @@ public class TestDao {
         resultSet = statement.executeQuery("select * from users where u_id='2'");
 
         if (resultSet.next()){
-          System.out.println(resultSet.getObject(1));
           Integer id = resultSet.getInt("u_id");
           String name = resultSet.getString("u_name");
           System.out.println(id + " " + name);
@@ -33,6 +32,6 @@ public class TestDao {
     }
   }
   public static void main(String[] args) {
-    new TestDao().TestFindById();
+    new TestDao().testFindById();
   }
 }

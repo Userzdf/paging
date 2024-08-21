@@ -12,21 +12,18 @@ public class LockExample {
   private final Lock lock = new ReentrantLock();
   
   //2、使用锁对象进行同步
-  public void synchronizedMethod() throws Exception{
+  public void synchronizedMethod() {
     lock.lock(); // 获取锁
     try {
-      // 同步代码块 
+      // 同步代码块
       // ...
-      new TestDao().TestFindById();
-
-      System.out.println("锁住执行代码块");
-
+      new TestDao().testFindById();
     } finally {
       lock.unlock(); // 释放锁
     }
   }
   public static void main(String[] args) throws Exception{
-    String res = new Pager("user",1,5,null).pagingForSingleTable();
+    new Pager("user",3,5,null).pagingForSingleTable();
     new LockExample().synchronizedMethod();
   }
 }

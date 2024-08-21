@@ -28,33 +28,33 @@ public class Pager implements Serializable {
   private ResultSet resultSet = null; //查询返回的结果集合
   private final Logger log = LoggerFactory.getLogger(Pager.class);
   private String queryStr; // 如果是多表，传入查询语句()
-  private Object other; //其他一些连接表条件
+  private Object others; //其他一些连接表条件
   public Pager() {
 
   }
 
   //单表使用的构造方法
-  public Pager(String tableName, Integer pageNumber, Integer pageSize,Object other) {
+  public Pager(String tableName, Integer pageNumber, Integer pageSize,Object others) {
     this.tableName = tableName;
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
-    this.other = other;
+    this.others = others;
   }
 
   //多表使用重载的构造方法
-  public Pager(Integer pageNumber, Integer pageSize,String queryStr,Object other) {
+  public Pager(Integer pageNumber, Integer pageSize,String queryStr,Object others) {
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
     this.queryStr = queryStr;
-    this.other = other;
+    this.others = others;
   }
 
-  public Object getOther() {
-    return other;
+  public Object getOthers() {
+    return others;
   }
 
-  public void setOther(Object other) {
-    this.other = other;
+  public void setOther(Object others) {
+    this.others = others;
   }
 
   public String getQueryStr() {

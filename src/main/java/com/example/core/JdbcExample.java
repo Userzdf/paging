@@ -29,8 +29,7 @@ public class JdbcExample {
      */
     public static Connection getConnection() throws SQLException {
         //获得连接
-        Connection conn = DriverManager.getConnection(url, user, password);
-        return conn;
+        return DriverManager.getConnection(url, user, password);
     }
 
     /** 释放资源
