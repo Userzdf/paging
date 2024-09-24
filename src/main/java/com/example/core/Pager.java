@@ -1,5 +1,6 @@
 package com.example.core;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -28,13 +29,14 @@ public class Pager implements Serializable {
   private ResultSet resultSet = null; //查询返回的结果集合
   private final Logger log = LoggerFactory.getLogger(Pager.class);
   private String queryStr; // 如果是多表，传入查询语句()
-  private Object others; //其他一些连接表条件
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private Map<String,Object> others; //其他一些连接表条件
   public Pager() {
 
   }
 
   //单表使用的构造方法
-  public Pager(String tableName, Integer pageNumber, Integer pageSize,Object others) {
+  public Pager(String tableName, Integer pageNumber, Integer pageSize,Map<String,Object> others) {
     this.tableName = tableName;
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
@@ -42,7 +44,7 @@ public class Pager implements Serializable {
   }
 
   //多表使用重载的构造方法
-  public Pager(Integer pageNumber, Integer pageSize,String queryStr,Object others) {
+  public Pager(Integer pageNumber, Integer pageSize,String queryStr,Map<String,Object> others) {
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
     this.queryStr = queryStr;
@@ -53,7 +55,7 @@ public class Pager implements Serializable {
     return others;
   }
 
-  public void setOther(Object others) {
+  public void setOther(Map<String,Object> others) {
     this.others = others;
   }
 
