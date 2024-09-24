@@ -36,11 +36,10 @@ public class Pager implements Serializable {
   }
 
   //单表使用的构造方法
-  public Pager(String tableName, Integer pageNumber, Integer pageSize,Map<String,Object> others) {
+  public Pager(String tableName, Integer pageNumber, Integer pageSize) {
     this.tableName = tableName;
     this.pageNumber = pageNumber;
     this.pageSize = pageSize;
-    this.others = others;
   }
 
   //多表使用重载的构造方法

@@ -23,7 +23,7 @@ public class LockExample {
     }
   }
   public static void main(String[] args) throws Exception{
-    new Pager("user",3,5,null).pagingForSingleTable();
-    new LockExample().synchronizedMethod();
+    new Pager("user",3,5).pagingForSingleTable();
+    // new LockExample().synchronizedMethod();
   }
 }
